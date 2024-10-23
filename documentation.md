@@ -1,4 +1,4 @@
-# StatTrio Pro Documentation
+# Z-t-Chi Calculator Documentation
 
 ## Technical Documentation
 
