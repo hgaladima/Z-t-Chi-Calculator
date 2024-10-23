@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chi-Square Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.5/jstat.min.js"></script>
+</head>
+
+<body>
+    <nav>
+        <ul class="nav-bar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="z_calculator.html">Z Calculator</a></li>
+            <li><a href="t_calculator.html">t Calculator</a></li>
+            <li><a href="chi_square.html" class="active">Chi-Square Calculator</a></li>
+        </ul>
+    </nav>
+
+    <div class="header-container">
+        <h1>Chi-Square Calculator</h1>
+        <p>Your tool for calculating chi-square statistics with ease</p>
+        <div class="info-box">
+            <p>
+                <strong>About Chi-Square Test</strong>
+                <span class="info-content">
+                    The chi-square test of independence determines whether there is a significant relationship between
+                    categorical variables.
+                    It compares observed frequencies with expected frequencies to test if variables are independent.
+                </span>
+            </p>
+            <div class="key-features">
+                <ul>
+                    <li>Test independence between variables</li>
+                    <li>Compare observed vs expected frequencies</li>
+                    <li>Analyze categorical data relationships</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <main role="main">
+        <section class="section">
+            <h2>Step 1: Define Your Data Structure</h2>
+            <div class="instruction-panel">
+                <h3>Instructions:</h3>
+                <ul>
+                    <li>Enter the number of rows (groups) and columns (categories) for your data</li>
+                    <li>Rows represent different groups or categories you're comparing</li>
+                    <li>Columns represent the different categories or outcomes</li>
+                    <li>Maximum size is 5x5 to ensure accurate analysis</li>
+                </ul>
+                <div class="example-box">
+                    <strong>Example:</strong> For gender (M/F) vs. preference (Yes/No), use 2 rows × 2 columns
+                </div>
+            </div>
+            <div class="input-container">
+                <div class="input-group">
+                    <label for="num-rows">Number of Rows (up to 5):</label>
+                    <input type="number" id="num-rows" min="2" max="5" value="2" required>
+                    <small class="input-help">Enter the number of groups you're comparing</small>
+                </div>
+                <div class="input-group">
+                    <label for="num-cols">Number of Columns (up to 5):</label>
+                    <input type="number" id="num-cols" min="2" max="5" value="2" required>
+                    <small class="input-help">Enter the number of categories per group</small>
+                </div>
+            </div>
+            <div class="button-group">
+                <button onclick="generateTable()" class="primary-button">Generate Table</button>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Step 2: Enter Your Data</h2>
+
+            <div class="table-container">
+                <table id="input-table"></table>
+            </div>
+            <div class="instruction-panel">
+                <h3>Instructions:</h3>
+                <ul>
+                    <li>Enter descriptive names for your rows and columns</li>
+                    <li>Input the observed frequencies (counts) in each cell</li>
+                    <li>Use only non-negative whole numbers</li>
+                    <li>Ensure all cells have values (use 0 if none observed)</li>
+                </ul>
+                <div class="data-tips">
+                    <strong>Tips for Good Data:</strong>
+                    <ul>
+                        <li>Each cell should ideally have an expected frequency of at least 5</li>
+                        <li>No cell should have an expected frequency less than 1</li>
+                        <li>Total sample size should be appropriate for your degrees of freedom</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="button-group">
+                <button onclick="toggleContingencyInfo()" class="secondary-button show-info-button"
+                    title="View expected frequencies and other table information">
+                    Show Contingency Table Info
+                </button>
+            </div>
+            <div id="contingency-info" class="info-panel" style="display: none;"></div>
+        </section>
+
+        <section class="section">
+            <h2>Step 3: Choose Significance Level</h2>
+            <div class="instruction-panel">
+                <h3>Instructions:</h3>
+                <ul>
+                    <li>Select your desired significance level (α)</li>
+                    <li>This determines how strong the evidence needs to be to reject the null hypothesis</li>
+                </ul>
+                <div class="significance-info">
+                    <strong>Common Significance Levels:</strong>
+                    <ul>
+                        <li>0.05 (5%): Standard level, balanced between Type I and Type II errors</li>
+                        <li>0.01 (1%): More conservative, stronger evidence needed</li>
+                        <li>0.10 (10%): More liberal, weaker evidence needed</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="input-group">
+                <label for="significance-level">Significance Level:</label>
+                <select id="significance-level" required>
+                    <option value="0.05">0.05 (5%)</option>
+                    <option value="0.01">0.01 (1%)</option>
+                    <option value="0.10">0.10 (10%)</option>
+                </select>
+            </div>
+            <div class="button-group">
+                <button onclick="performChiSquareTest()" class="primary-button">
+                    Calculate Chi-Square
+                </button>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Results</h2>
+            <div class="instruction-panel">
+                <h3>Understanding Your Results:</h3>
+                <ul>
+                    <li><strong>Chi-Square Statistic (χ²):</strong> Measures the difference between observed and
+                        expected frequencies</li>
+                    <li><strong>Degrees of Freedom (df):</strong> (rows-1) × (columns-1)</li>
+                    <li><strong>P-value:</strong> Probability of obtaining test results at least as extreme as observed,
+                        assuming null hypothesis is true</li>
+                    <li><strong>Critical Value:</strong> The minimum chi-square value needed to reject the null
+                        hypothesis</li>
+                </ul>
+                <div class="interpretation-guide">
+                    <strong>Interpreting Results:</strong>
+                    <ul>
+                        <li>If p-value < significance level: Reject null hypothesis (variables are dependent)</li>
+                        <li>If p-value ≥ significance level: Fail to reject null hypothesis (insufficient evidence of
+                            dependence)</li>
+                        <li>If χ² > Critical Value: Reject null hypothesis</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="loading-indicator" class="loading-spinner" style="display: none;">
+                Calculating...
+            </div>
+            <div id="results" class="results-container"></div>
+        </section>
+    </main>
+
+    <footer class="footer-container">
+        <p>© 2024 Chi-Square Calculator. All rights reserved.</p>
+        <p>For educational purposes only. Always double-check statistical calculations.</p>
+        <div class="footer-notes">
+            <p><strong>Note:</strong> This calculator assumes your data meets the chi-square test assumptions:</p>
+            <ul>
+                <li>Random sampling</li>
+                <li>Independent observations</li>
+                <li>Adequate sample size</li>
+                <li>Mutually exclusive categories</li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="js/chi_square.js"></script>
+</body>
+
+</html>

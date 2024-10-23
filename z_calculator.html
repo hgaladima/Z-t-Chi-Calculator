@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Area Under the Normal Curve Calculator</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.5/jstat.min.js"></script>
+</head>
+
+<body>
+    <nav>
+        <ul class="nav-bar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="z_calculator.html" class="active">Z Calculator</a></li>
+            <li><a href="t_calculator.html">t Calculator</a></li>
+            <li><a href="chi_square.html">Chi-Square Calculator</a></li>
+        </ul>
+    </nav>
+
+    <div class="header-container">
+        <h1>Area Under the Normal Curve Calculator</h1>
+        <p>Calculate probabilities and areas under the standard normal distribution</p>
+        <div class="info-box">
+            <p><strong>About Normal Distribution:</strong> The normal distribution is a symmetric, bell-shaped curve
+                where the area under the curve represents probability. Z-scores indicate how many standard deviations an
+                observation is from the mean.</p>
+        </div>
+    </div>
+
+    <main role="main">
+        <section class="section">
+            <h2>Z-score to Probability Calculator</h2>
+            <div class="instruction-panel">
+                <h3>Instructions:</h3>
+                <ul>
+                    <li>Enter a Z-score to find the corresponding area under the curve (AUC)</li>
+                    <li>The result shows the probability P(Z ≤ z) - area to the left of Z</li>
+                    <li>Z-scores can be positive or negative</li>
+                </ul>
+            </div>
+
+            <div class="calculator-container">
+                <div class="input-group">
+                    <label for="z-to-p">Enter Z-score:</label>
+                    <input type="number" id="z-to-p" step="0.0001" placeholder="Enter Z value" required>
+                    <small class="input-help">Example: 1.96, -1.645, etc.</small>
+                </div>
+
+                <div class="button-group">
+                    <button id="calculate-z-to-p" class="primary-button">Find Probability</button>
+                </div>
+
+                <div class="result-group">
+                    <div class="result-box">
+                        <p><strong>Area under the curve (left tail):</strong></p>
+                        <p id="z-to-p-result" class="result-value">-</p>
+                        <p id="z-to-p-interpretation" class="result-interpretation"></p>
+                    </div>
+                </div>
+
+                <!-- Replace the existing results section with this structure -->
+                <div class="results-section">
+                    <div class="result-group">
+                        <div class="result-box">
+                            <h3 class="result-title">Probability Results</h3>
+                            <div class="probability-result">
+                                <span class="label">Area under the curve (left tail):</span>
+                                <span id="z-to-p-result" class="value">-</span>
+                            </div>
+                            <div class="result-interpretation" id="z-to-p-interpretation"></div>
+                        </div>
+                    </div>
+
+                    <div class="visualization-wrapper">
+                        <h3>Probability Visualizations</h3>
+                        <div id="visualizations"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Probability to Z-score Calculator</h2>
+            <div class="instruction-panel">
+                <h3>Instructions:</h3>
+                <ul>
+                    <li>Enter a probability (percentile) to find the corresponding Z-score</li>
+                    <li>The probability should be between 0 and 1</li>
+                    <li>This calculates the Z-score that gives the specified left-tail probability</li>
+                </ul>
+            </div>
+
+            <div class="calculator-container">
+                <div class="input-group">
+                    <label for="p-to-z">Enter probability (AUC value):</label>
+                    <input type="number" id="p-to-z" step="0.0001" min="0" max="1" placeholder="Enter probability"
+                        required>
+                    <small class="input-help">Example: 0.975 for 97.5th percentile</small>
+                </div>
+
+                <div class="button-group">
+                    <button id="calculate-p-to-z" class="primary-button">Find Z-score</button>
+                </div>
+
+                <div class="result-group">
+                    <div class="result-box">
+                        <p><strong>Z-score value:</strong></p>
+                        <p id="p-to-z-result" class="result-value">-</p>
+                        <p id="p-to-z-interpretation" class="result-interpretation"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="section">
+            <h2>Common Values Reference</h2>
+            <div class="reference-table">
+                <table class="compact-results-table">
+                    <thead>
+                        <tr>
+                            <th>Percentile</th>
+                            <th>Z-score</th>
+                            <th>Common Use</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>0.9000 (90%)</td>
+                            <td>1.2816</td>
+                            <td>80% confidence interval</td>
+                        </tr>
+                        <tr>
+                            <td>0.9500 (95%)</td>
+                            <td>1.6449</td>
+                            <td>90% confidence interval</td>
+                        </tr>
+                        <tr>
+                            <td>0.9750 (97.5%)</td>
+                            <td>1.9600</td>
+                            <td>95% confidence interval</td>
+                        </tr>
+                        <tr>
+                            <td>0.9900 (99%)</td>
+                            <td>2.3263</td>
+                            <td>98% confidence interval</td>
+                        </tr>
+                        <tr>
+                            <td>0.9950 (99.5%)</td>
+                            <td>2.5758</td>
+                            <td>99% confidence interval</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer-container">
+        <p>© 2024 Z-t-Chi Calculator. All rights reserved.</p>
+        <p>For educational purposes only. Always double-check statistical calculations.</p>
+        <div class="footer-notes">
+            <p><strong>Note:</strong> This calculator assumes:</p>
+            <ul class="compact-list">
+                <li>Standard normal distribution (μ = 0, σ = 1)</li>
+                <li>Data is normally distributed</li>
+                <li>Z-scores are properly calculated</li>
+                <li>Continuous data</li>
+            </ul>
+        </div>
+    </footer>
+
+    <script src="js/z_calculator.js"></script>
+</body>
+
+</html>
